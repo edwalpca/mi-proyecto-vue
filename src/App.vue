@@ -6,7 +6,6 @@
   //Aqui lo puedo definir como una constante porqu tiene mejor performance.
  const contador = ref(0);
 
-
   //Metodo de Incrementar
  const incrementar = () => {
    contador.value++;
@@ -24,13 +23,24 @@
    contador.value = 0;
    console.log(contador);
  }
+
+ const textoRojo  = 'color: red';
+ const textoVerde = 'color: green';
+ const textogris = 'color: grey';
+
 </script>
-
-
 
 <template>
   <h1>Ejercicio de Reactividad de vue</h1>
-  <h2> Contador: {{contador}}</h2>
+  <template v-if="(contador > 0)">
+    <h2 v-bind:style="textoVerde"> Contador: {{contador}}</h2>
+  </template>
+  <template v-else-if="(contador == 0)">
+    <h2 :style="textogris"> Contador: {{contador}}</h2>
+  </template>
+  <template v-else>
+    <h2 v-bind:style="textoRojo"> Contador: {{contador}}</h2>
+  </template>
 
   <div>
   <button @click="incrementar">Aumentar Contador</button>
