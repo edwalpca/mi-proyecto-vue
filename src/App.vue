@@ -11,7 +11,10 @@
   //Metodo de disminuir
  const disminuir = () => contador.value--
   //Metodo de Resetear
- const restaurar = () => contador.value = 0;
+ const restaurar = ()=> {
+   contador.value = 0;
+   listaNumeros.value
+ }
 
  // Cuando usamos un metodo computado siempre la funcion estrictamente
  // debe retornar ALGO
@@ -31,16 +34,20 @@
   const listaNumeros = ref([]);
 
 
+  const bloqueo = computed(()=>{
+    const numSearch =listaNumeros.value.find((num)=> num === contador.value);
+    return numSearch ? true : false;
+
+  });
+
   const existe = () => {
     for(var i = 0; i < listaNumeros.value.length; i++){
-      console.log(listaNumeros.value[i] );
       if( listaNumeros.value[i] == contador.value){
-        console.log( 'Encontrado' );
         return true
       }
     }
     return false
-  }
+  };
 
 
   //Metodo que Agrega numeros a mi lista
@@ -61,11 +68,13 @@
 <template>
   <h1>Ejercicio de Reactividad de Vue</h1>
   <h2 v-bind:class="classCounter">Contador: {{contador}}</h2>
-  <div>
-      <button @click="incrementar">Aumentar Contador</button>
-      <button @click="disminuir">Disminuir Contador</button>
-      <button @click="restaurar">Resetar Contador</button>
-      <button @click="agregar" :disabled="!existe">Agregar [+]</button>
+  <div class="container text-center mt">
+    <div class="btn-group">
+      <button class="btn btn-success" @click="incrementar">Aumentar Contador</button>
+      <button class="btn btn-danger" @click="disminuir">Disminuir Contador</button>
+      <button class="btn btn-secondary" @click="restaurar">Resetar Contador</button>
+      <button class="btn btn-primary"  @click="agregar" :disabled="bloqueo">Agregar [+]</button>
+    </div>
   </div>
 
   <h3>{{listaNumeros}}</h3>
