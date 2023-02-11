@@ -27,6 +27,35 @@
    }
  });
 
+ // Arreglo de numeros seleccionados por el usuario
+  const listaNumeros = ref([]);
+
+
+  const existe = () => {
+    for(var i = 0; i < listaNumeros.value.length; i++){
+      console.log(listaNumeros.value[i] );
+      if( listaNumeros.value[i] == contador.value){
+        console.log( 'Encontrado' );
+        return true
+      }
+    }
+    return false
+  }
+
+
+  //Metodo que Agrega numeros a mi lista
+  const agregar = () => {
+
+    if (!existe(contador.value)){
+      //Agrego a mi Lista un nuevo valor
+      listaNumeros.value.push(contador.value);
+    }
+
+
+    console.log(listaNumeros);
+
+  }
+
 </script>
 
 <template>
@@ -36,7 +65,10 @@
       <button @click="incrementar">Aumentar Contador</button>
       <button @click="disminuir">Disminuir Contador</button>
       <button @click="restaurar">Resetar Contador</button>
+      <button @click="agregar" :disabled="!existe">Agregar [+]</button>
   </div>
+
+  <h3>{{listaNumeros}}</h3>
 </template>
 
 <style>
